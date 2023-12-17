@@ -1,9 +1,24 @@
+import {createSlice} from "@reduxjs/toolkit";
 
 interface TaskState {
-    value: string;
-
+    header: string;
+    status: boolean;
 }
 
 const initialState: TaskState = {
-    value: '',
+    header: '',
+    status: false,
 };
+
+export const taskSlice = createSlice({
+    name: 'task',
+    initialState,
+    reducers: {
+    },
+});
+
+export const taskReducer = taskSlice.reducer;
+// export const {
+//
+// } = taskSlice.actions;
+
