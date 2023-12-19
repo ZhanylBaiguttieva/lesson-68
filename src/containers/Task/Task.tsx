@@ -1,6 +1,6 @@
 
 import {useEffect} from "react";
-import {deleteTask, fetchTask} from "./taskThunks";
+import {changeTaskStatus, deleteTask, fetchTask} from "./taskThunks";
 import {useAppDispatch, useAppSelector} from "../../app/hooks";
 import {selectDeleteTaskLoading, selectFetchTaskLoading, selectTask} from "./taskSlice";
 import Spinner from "../../spinner/Spinner";
@@ -17,9 +17,14 @@ const Task = () => {
     useEffect(() => {
         dispatch(fetchTask());
     }, [dispatch]);
+
     const removeTask = async (id: string) => {
         await dispatch(deleteTask(id));
         await dispatch(fetchTask());
+    };
+    const changeStatus = async(id: string) => {
+       await dispatch(changeTaskStatus(id));
+       await dispatch(fetchTask());
     };
 
 
@@ -32,6 +37,7 @@ const Task = () => {
                     taskItem={task}
                     deleteLoading = {deleteLoading}
                     onDelete={() => removeTask(task.id)}
+                    onChange={() => changeStatus(task.id)}
                 />
             ))}
         </>
