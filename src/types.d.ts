@@ -1,13 +1,11 @@
 export interface Task {
     id: string;
     header: string;
-    status: false;
+    status: boolean;
 }
 
 export type ApiTask = Omit<Task, 'id'>;
 
-export type TaskHeader = Omit<ApiTask, 'status'>
-
 export interface TasksList {
-    [id:string]: TaskHeader;
+    [id:string]: ApiTask;
 }
