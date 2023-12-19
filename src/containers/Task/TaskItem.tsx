@@ -3,13 +3,15 @@ import {Task} from "../../types";
 import ButtonSpinner from "../../spinner/ButtonSpinner";
 import React from "react";
 
+
 interface Props {
     taskItem: Task;
     deleteLoading: boolean | string;
     onDelete: React.MouseEventHandler;
+    onChange: React.ChangeEventHandler<HTMLInputElement>;
 }
 
-const DishItem: React.FC<Props> = ({taskItem, deleteLoading, onDelete}) => {
+const DishItem: React.FC<Props> = ({taskItem, deleteLoading, onDelete, onChange}) => {
 
     return (
         <div className="card p-0 mb-1">
@@ -17,7 +19,12 @@ const DishItem: React.FC<Props> = ({taskItem, deleteLoading, onDelete}) => {
                     <div className="card-body">
                         <p className="card-title fs-4">{taskItem.header}</p>
                         <label className="fs-7 mb-2" htmlFor="status">Done/Undone</label>
-                            <input className='m-2' type="checkbox" id="status" name="status" value="status"/>
+                            <input
+                                className='m-2'
+                                type="checkbox"
+                                checked={taskItem.status}
+                                onChange={onChange}
+                            />
                         <p className="align-content-end">
                             <button
                                 className="btn btn-danger"
