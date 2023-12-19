@@ -10,7 +10,7 @@ const TaskForm: React.FC<Props> = ({onSubmit}) => {
         status: false,
     });
 
-    const changeTask = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const changeTask = (e: React.ChangeEvent<HTMLInputElement>) => {
         setNewTask((prev) => ({
             ...prev,
             [e.target.name]: e.target.value,
