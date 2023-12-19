@@ -1,7 +1,7 @@
 import './App.css';
 import Task from "./containers/Task/Task";
 import TaskForm from "./containers/TaskForm/TaskForm";
-import {TaskHeader} from "./types";
+import {ApiTask} from "./types";
 import {useAppDispatch} from "./app/hooks";
 import {useEffect} from "react";
 import {createTask, fetchTask} from "./containers/Task/taskThunks";
@@ -11,7 +11,7 @@ function App() {
     useEffect(() => {
         dispatch(fetchTask());
     }, [dispatch]);
-    const addNewTask = async (task: TaskHeader) => {
+    const addNewTask = async (task: ApiTask) => {
         await dispatch(createTask(task));
         await dispatch(fetchTask());
     };

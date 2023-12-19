@@ -1,12 +1,13 @@
 import React, {useState} from "react";
-import {TaskHeader} from "../../types";
+import {ApiTask} from "../../types";
 
 interface Props{
-    onSubmit: (task: TaskHeader) => void;
+    onSubmit: (task: ApiTask) => void;
 }
 const TaskForm: React.FC<Props> = ({onSubmit}) => {
     const [newTask, setNewTask] = useState({
         header: '',
+        status: false,
     });
 
     const changeTask = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
