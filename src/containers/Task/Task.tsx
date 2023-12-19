@@ -1,15 +1,40 @@
-import {useDispatch, useSelector} from "react-redux";
-import {AppDispatch, RootState} from "../../app/store";
+
+import {useEffect} from "react";
+import {deleteTask, fetchTask} from "./taskThunks";
+import {useAppDispatch, useAppSelector} from "../../app/hooks";
+import {selectDeleteTaskLoading, selectFetchTaskLoading, selectTask} from "./taskSlice";
+import Spinner from "../../spinner/Spinner";
+import TaskItem from "./TaskItem";
 
 
 const Task = () => {
-    const taskHeader = useSelector((state: RootState) => state.task.header);
-    const dispatch: AppDispatch = useDispatch();
+
+    const dispatch = useAppDispatch();
+    const tasks = useAppSelector(selectTask);
+    const deleteLoading = useAppSelector(selectDeleteTaskLoading);
+    const dishesLoading = useAppSelector(selectFetchTaskLoading);
+
+    useEffect(() => {
+        dispatch(fetchTask());
+    }, [dispatch]);
+    const removeTask = async (id: string) => {
+        await dispatch(deleteTask(id));
+        await dispatch(fetchTask());
+    };
+
+
     return (
-        <div className="Task">
-            <h1>{taskHeader}</h1>
-            <button>Done/Undone</button>
-        </div>
+        <>
+            <h4>ToDo List: </h4>
+            {dishesLoading ? <Spinner/> : tasks.map((task) => (
+                <TaskItem
+                    key={task.id}
+                    taskItem={task}
+                    deleteLoading = {deleteLoading}
+                    onDelete={() => removeTask(task.id)}
+                />
+            ))}
+        </>
     );
 };
 
